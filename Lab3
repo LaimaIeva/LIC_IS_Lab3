@@ -1,0 +1,17 @@
+%TETfm-22 Laima Ieva Čalkauskaitė
+clear
+clc
+
+x = 0:1/19:1;
+y = ((1+0.6*sin(2*pi*x/0.7))+0.3*sin(2*pi*x))/2;
+figure(1)
+plot(x, y, 'r+');
+title('Grafikas');
+hold on
+grid on;
+
+%F = exp(-(x-c)^2/(2*r^2))); Gauso funkcija
+c1
+c2
+r1
+r2
