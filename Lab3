@@ -3,15 +3,39 @@ clear
 clc
 
 x = 0:1/19:1;
-y = ((1+0.6*sin(2*pi*x/0.7))+0.3*sin(2*pi*x))/2;
-figure(1)
-plot(x, y, 'r+');
-title('Grafikas');
-hold on
-grid on;
+d = ((1+0.6*sin(2*pi*x/0.7))+0.3*sin(2*pi*x))/2;
+% figure(1)
+% plot(x, d, 'r+');
+% title('Grafikas');
+% hold on
+% grid on;
 
-%F = exp(-(x-c)^2/(2*r^2))); Gauso funkcija
-c1
-c2
-r1
-r2
+c1 = 0.2; c2 = 0.9;
+sigma1 = 0.18; sigma2 = 0.18;
+Phi1 = exp(-(x-c1).^2/(2*sigma1.^2));
+Phi2 = exp(-(x-c2).^2/(2*sigma2.^2));
+w1 = randn(1);
+w2 = randn(1);
+w0 = randn(1);
+mok_z = 0.15;
+
+for index=i:10000
+    for n=1:20
+        v = Phi1(n).*w1+Phi2(n).*w2+w0;
+        y = v;
+        e = d(n) - y;
+        
+        delta_out = e;
+        w1 = w1 + mok_z*delta_out.*Phi1(n);
+        w2 = w2 + mok_z*delta_out.*Phi2(n);
+        w0 = w0 + mok_z*delta_out;
+    end
+end
+
+for m=1:numel(x)
+    v = Phi1(m).*w1+Phi2(m).*w2+w0;
+    y(m) = v;
+end
+
+figure,
+plot(x,d,'rx', x,y,'b*')
